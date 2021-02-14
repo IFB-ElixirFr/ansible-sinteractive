@@ -21,8 +21,9 @@
     - name: "Ensure sinteractive_profile.sh contains 'fast'"
       lineinfile:
         name: /etc/profile.d/sinteractive_profile.sh
-        line: "alias sinteractive=\"sinteractive -p {{ sinteractive_default_partition }} \""
+        line: "alias sinteractive=\"sinteractive -p
+          {{ sinteractive_default_partition }} \""
         state: present
-      check_mode: yes
+      check_mode: true
       register: conf
       failed_when: (conf is changed) or (conf is failed)
