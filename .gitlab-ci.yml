@@ -1,0 +1,61 @@
+---
+
+image: fanchthesystem/ubuntu-with-molecule:latest
+services:
+  - docker:dind
+# https://univers-libre.net/posts/ansible-molecule-gitlab-ci.html
+
+
+variables:
+  GIT_SSL_NO_VERIFY: "1"
+  PY_COLORS: "1"
+  DOCKER_HOST: "tcp://docker:2375"
+
+.BaseTest:
+  retry: 2
+  before_script:
+    - python --version
+    - pip --version
+    - ansible --version
+    - molecule --version
+    - docker --version
+  script:
+    # yamllint disable-line rule:line-length
+    - NAME=$(basename $(pwd)) ROLENAME=$(echo $NAME | sed -e s/ansible-//g) && cd .. &&  ln -fs $NAME $ROLENAME && cd $ROLENAME && pwd
+    # yamllint disable-line rule:line-length
+    - TMPDIR=$(mktemp -d -t ci-XXXXXXXXXX) INSTANCE=$(basename $TMPDIR) molecule test
+
+CentOS 7:
+  extends: .BaseTest
+  variables:
+    DISTRO: "centos7"
+
+CentOS 8:
+  extends: .BaseTest
+  variables:
+    DISTRO: "centos8"
+
+Fedora 32:
+  extends: .BaseTest
+  variables:
+    DISTRO: "fedora32"
+
+Ubuntu 18.04:
+  extends: .BaseTest
+  variables:
+    DISTRO: "ubuntu1804"
+
+Ubuntu 20.04:
+  extends: .BaseTest
+  variables:
+    DISTRO: "ubuntu2004"
+
+Debian 9:
+  extends: .BaseTest
+  variables:
+    DISTRO: "debian9"
+
+Debian 10:
+  extends: .BaseTest
+  variables:
+    DISTRO: "debian10"

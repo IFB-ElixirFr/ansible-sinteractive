@@ -1,0 +1,14 @@
+---
+
+- name: Git clone
+  git:
+    repo: "{{ sinteractive_git_url }}"
+    dest: "{{ sinteractive_homedir }}"
+    version: "{{ sinteractive_version }}"
+
+- name: Template profile.d file
+  template:
+    src: "sinteractive_profile.sh.j2"
+    dest: "/etc/profile.d/sinteractive_profile.sh"
+    owner: root
+    mode: '0644'

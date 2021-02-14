@@ -1,0 +1,7 @@
+---
+
+sinteractive_git_url: https://github.com/igbmc/sinteractive.git
+sinteractive_version: f1662e8c073a1f26ef7be031ac2f14bedc72c08d
+
+sinteractive_homedir: /usr/local/bin/
+sinteractive_default_partition: sinteractive

@@ -1,0 +1,5 @@
+export PATH={{ sinteractive }}:$PATH
+
+{% if sinteractive_default_partition != 'sinteractive' %}
+alias sinteractive="sinteractive -p {{ sinteractive_default_partition }} "
+{% endif %}

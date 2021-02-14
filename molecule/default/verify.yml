@@ -1,0 +1,28 @@
+---
+
+- name: Verify
+  hosts: all
+  vars:
+    sinteractive_homedir: '/opt/sinteractive'
+    sinteractive_default_partition: 'fast'
+  tasks:
+    - name: get status_bars
+      stat: path="{{ sinteractive_homedir }}/sinteractive"
+      register: sinteractive
+    - name: Check sinteractive
+      assert:
+        that: sinteractive.stat.exists
+    - name: get profile.d
+      stat: path="/etc/profile.d/sinteractive_profile.sh"
+      register: profile_d
+    - name: Check profile_d
+      assert:
+        that: profile_d.stat.exists
+    - name: "Ensure sinteractive_profile.sh contains 'fast'"
+      lineinfile:
+        name: /etc/profile.d/sinteractive_profile.sh
+        line: "alias sinteractive=\"sinteractive -p {{ sinteractive_default_partition }} \""
+        state: present
+      check_mode: yes
+      register: conf
+      failed_when: (conf is changed) or (conf is failed)

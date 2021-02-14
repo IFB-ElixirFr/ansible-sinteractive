@@ -1,0 +1,29 @@
+---
+
+galaxy_info:
+  author: IFB
+  description: A role to install sinteractive
+  role_name: sinteractive
+  company: IFB
+  license: MIT
+  min_ansible_version: 2.8
+  platforms:
+    - name: CentOS
+      versions:
+        - 7
+        - 8
+    - name: Fedora
+      versions:
+        - 32
+    - name: Debian
+      versions:
+        - 9
+        - 10
+    - name: Ubuntu
+      versions:
+        - 18.04
+        - 20.04
+
+dependencies:
+  - role: geerlingguy.git
+    version: 3.0.0

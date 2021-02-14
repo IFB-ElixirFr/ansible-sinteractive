@@ -1,0 +1,43 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  ## Docker Official Images
+  # - name: centos-8-instance
+  #  image: centos:8
+  #  command: /sbin/init
+  #  pre_build_image: true
+  #  privileged: true
+  #  tmpfs:
+  #    - /run
+  #    - /tmp
+  #  volumes:
+  #    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  ## Fanch images
+  # - name: ${DISTRO:-centos}-fanch-instance
+  #  image: fanchthesystem/${DISTRO:-centos}-with-systemd:latest
+  #  override_command: false
+  #  privileged: true
+  #  volumes:
+  #    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  #
+  ## Geerlinguy images
+  - name: ${DISTRO:-centos7}-geerlingguy-instance
+    image: geerlingguy/docker-${DISTRO:-centos7}-ansible
+    command: /sbin/init
+    pre_build_image: true
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  #flake8

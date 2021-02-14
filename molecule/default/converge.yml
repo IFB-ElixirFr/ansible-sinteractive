@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include sinteractive"
+      include_role:
+        name: sinteractive
