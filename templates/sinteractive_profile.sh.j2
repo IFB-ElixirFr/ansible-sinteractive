@@ -1,4 +1,4 @@
-export PATH={{ sinteractive }}:$PATH
+export PATH={{ sinteractive_homedir }}:$PATH
 
 {% if sinteractive_default_partition != 'sinteractive' %}
 alias sinteractive="sinteractive -p {{ sinteractive_default_partition }} "

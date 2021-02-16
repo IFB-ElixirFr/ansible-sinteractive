@@ -1,6 +1,9 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    sinteractive_homedir: '/opt/sinteractive'
+    sinteractive_default_partition: 'fast'
   tasks:
     - name: "Include sinteractive"
       include_role:
