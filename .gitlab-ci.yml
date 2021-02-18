@@ -1,5 +1,9 @@
 ---
 
+stages:
+  - test
+  - publish
+
 image: fanchthesystem/ubuntu-with-molecule:latest
 services:
   - docker:dind
@@ -12,6 +16,7 @@ variables:
   DOCKER_HOST: "tcp://docker:2375"
 
 .BaseTest:
+  stage: test
   retry: 2
   before_script:
     - python --version
@@ -59,3 +64,13 @@ Debian 10:
   extends: .BaseTest
   variables:
     DISTRO: "debian10"
+
+
+
+Publish on Ansible Galaxy:
+  stage: publish
+  script: 
+    - ansible-galaxy role import --api-key ${{ GALAXY_API_KEY }} ifb-elixirfr ansible-sinteractive
+  only: 
+    - tags
+
