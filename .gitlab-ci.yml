@@ -70,7 +70,7 @@ Debian 10:
 Publish on Ansible Galaxy:
   stage: publish
   script: 
-    - ansible-galaxy role import --api-key $GALAXY_API_KEY IFB ansible-sinteractive
+    - ansible-galaxy role import --api-key $GALAXY_API_KEY IFB-ElixirFr ansible-sinteractive
   only: 
     - tags
 
