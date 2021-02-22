@@ -9,7 +9,6 @@ services:
   - docker:dind
 # https://univers-libre.net/posts/ansible-molecule-gitlab-ci.html
 
-
 variables:
   GIT_SSL_NO_VERIFY: "1"
   PY_COLORS: "1"
@@ -65,12 +64,10 @@ Debian 10:
   variables:
     DISTRO: "debian10"
 
-
-
 Publish on Ansible Galaxy:
   stage: publish
-  script: 
-    - ansible-galaxy role import --api-key $GALAXY_API_KEY IFB-ElixirFr ansible-sinteractive
-  only: 
+  script:
+    - "ansible-galaxy role import --api-key $GALAXY_API_KEY
+      IFB-ElixirFr ansible-sinteractive"
+  only:
     - tags
-
